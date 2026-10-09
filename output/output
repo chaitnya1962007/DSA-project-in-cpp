@@ -1,0 +1,97 @@
+===== TRAIN COACH MANAGEMENT =====
+
+1. Add Coach
+
+2. Remove Coach
+
+3. Display Coaches
+
+4. Count Coaches
+
+5. Exit
+
+Enter your choice: 1
+
+Enter coach number: 100
+
+Enter coach type (AC/Sleeper/General): AC
+
+Coach added successfully!
+
+===== TRAIN COACH MANAGEMENT =====
+
+1. Add Coach
+
+Exit
+
+2. Remove Coach
+
+3. Display Coaches
+
+4. Count Coaches
+
+5.
+
+Enter your choice: 1
+
+Enter coach number: 101
+
+Enter coach type (AC/Sleeper/General): Sleeper
+
+Coach added successfully!
+
+===== TRAIN COACH MANAGEMENT =====
+
+1. Add Coach
+
+2. Remove Coach
+
+3. Display Coaches
+
+4. Count Coaches
+
+5. Exit
+
+Enter your choice: 1
+
+Enter coach number: 102
+
+Enter coach type (AC/Sleeper/General): General
+
+Coach added successfully!
+
+===== TRAIN COACH MANAGEMENT =====
+
+1. Add Coach
+
+2. Remove Coach
+
+3. Display Coaches
+
+4. Count Coaches
+
+5. Exit
+
+Enter your choice: 3
+
+Train Coaches:
+
+Coach Number: 100 | Type: AC
+
+Coach Number: 101 | Type: Sleeper Coach Number: 102 | Type: General
+
+===== TRAIN COACH MANAGEMENT =====
+
+1. Add Coach
+
+2. Remove Coach
+
+3. Display Coaches
+
+4. Count Coaches
+
+5. Exit
+
+Enter your choice: 4
+
+Total coaches: 3
