@@ -1,0 +1,240 @@
+#include <iostream>
+#include <string>
+#include <limits>
+using namespace std;
+
+class Node {
+public:
+    int coachNumber;
+    string coachType;
+    Node* next;
+
+    Node(int number, string type) {
+        coachNumber = number;
+        coachType = type;
+        next = nullptr;
+    }
+};
+
+class Train {
+private:
+    Node* head;
+
+public:
+    Train() {
+        head = nullptr;
+    }
+
+    // Add a coach to the train
+    void addCoach(int number, string type) {
+        if (head != nullptr) {
+            Node* temp = head;
+
+            do {
+                if (temp->coachNumber == number) {
+                    cout << "Coach number already exists.\n";
+                    return;
+                }
+                temp = temp->next;
+            } while (temp != head);
+        }
+
+        Node* newNode = new Node(number, type);
+
+        if (head == nullptr) {
+            head = newNode;
+            newNode->next = head;
+        } else {
+            Node* temp = head;
+
+            while (temp->next != head) {
+                temp = temp->next;
+            }
+
+            temp->next = newNode;
+            newNode->next = head;
+        }
+
+        cout << "Coach added successfully!\n";
+    }
+
+    // Remove a coach by coach number
+    void removeCoach(int number) {
+        if (head == nullptr) {
+            cout << "Train has no coaches.\n";
+            return;
+        }
+
+        Node* current = head;
+        Node* previous = nullptr;
+        bool found = false;
+
+        do {
+            if (current->coachNumber == number) {
+                found = true;
+                break;
+            }
+
+            previous = current;
+            current = current->next;
+
+        } while (current != head);
+
+        if (!found) {
+            cout << "Coach not found.\n";
+            return;
+        }
+
+        // Only one coach exists
+        if (current == head && head->next == head) {
+            delete head;
+            head = nullptr;
+        }
+        // Remove the first coach
+        else if (current == head) {
+            Node* last = head;
+
+            while (last->next != head) {
+                last = last->next;
+            }
+
+            head = head->next;
+            last->next = head;
+            delete current;
+        }
+        // Remove any other coach
+        else {
+            previous->next = current->next;
+            delete current;
+        }
+
+        cout << "Coach removed successfully!\n";
+    }
+
+    // Display all coaches
+    void displayCoaches() {
+        if (head == nullptr) {
+            cout << "Train has no coaches.\n";
+            return;
+        }
+
+        Node* temp = head;
+
+        cout << "\nTrain Coaches:\n";
+
+        do {
+            cout << "Coach Number: " << temp->coachNumber
+                 << " | Type: " << temp->coachType << endl;
+
+            temp = temp->next;
+        } while (temp != head);
+    }
+
+    // Count total coaches
+    void countCoaches() {
+        if (head == nullptr) {
+            cout << "Total coaches: 0\n";
+            return;
+        }
+
+        int count = 0;
+        Node* temp = head;
+
+        do {
+            count++;
+            temp = temp->next;
+        } while (temp != head);
+
+        cout << "Total coaches: " << count << endl;
+    }
+
+    // Free allocated memory
+    ~Train() {
+        if (head == nullptr) {
+            return;
+        }
+
+        Node* current = head->next;
+
+        while (current != head) {
+            Node* temp = current;
+            current = current->next;
+            delete temp;
+        }
+
+        delete head;
+        head = nullptr;
+    }
+};
+
+int main() {
+    Train train;
+    int choice, number;
+    string type;
+
+    do {
+        cout << "\n===== TRAIN COACH MANAGEMENT =====\n";
+        cout << "1. Add Coach\n";
+        cout << "2. Remove Coach\n";
+        cout << "3. Display Coaches\n";
+        cout << "4. Count Coaches\n";
+        cout << "5. Exit\n";
+        cout << "Enter your choice: ";
+
+        if (!(cin >> choice)) {
+            cout << "Invalid input! Please enter a number.\n";
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            continue;
+        }
+
+        switch (choice) {
+            case 1:
+                cout << "Enter coach number: ";
+
+                if (!(cin >> number)) {
+                    cout << "Invalid coach number.\n";
+                    cin.clear();
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                    break;
+                }
+
+                cout << "Enter coach type (AC/Sleeper/General): ";
+                cin >> type;
+
+                train.addCoach(number, type);
+                break;
+
+            case 2:
+                cout << "Enter coach number to remove: ";
+
+                if (!(cin >> number)) {
+                    cout << "Invalid coach number.\n";
+                    cin.clear();
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                    break;
+                }
+
+                train.removeCoach(number);
+                break;
+
+            case 3:
+                train.displayCoaches();
+                break;
+
+            case 4:
+                train.countCoaches();
+                break;
+
+            case 5:
+                cout << "Exiting Train Coach Management System.\n";
+                break;
+
+            default:
+                cout << "Invalid choice! Please try again.\n";
+        }
+
+    } while (choice != 5);
+
+    return 0;
+}
