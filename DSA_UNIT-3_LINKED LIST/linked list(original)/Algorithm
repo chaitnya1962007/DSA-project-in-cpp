@@ -1,0 +1,25 @@
+Algorithm: Circular Linked List for Coach Management
+
+Step 1: Start the program.
+Step 2: Initialize an empty circular linked list by setting last = NULL.
+Step 3: Display the menu containing the following operations:
+• Add a coach
+• Remove a coach
+• Display all coaches
+• Exit
+Step 4: Accept the user's choice.
+Step 5: If the user selects Add Coach:
+• Create a new node.
+• Enter the coach number.
+• If the list is empty, point the new node to itself.
+• Otherwise, insert the new coach at the end and update the circular connection.
+Step 6: If the user selects Remove Coach:
+• Enter the coach number to remove.
+• Search for the coach in the list.
+• If found, delete the node and update the links.
+• If not found, display an appropriate message.
+Step 7: If the user selects Display Coaches, traverse the circular linked list and display all
+coach numbers.
+Step 8: Repeat Steps 3–7 until the user selects Exit.
+Step 9: Release the allocated memory and stop the program.
+— End of Algorithm —
