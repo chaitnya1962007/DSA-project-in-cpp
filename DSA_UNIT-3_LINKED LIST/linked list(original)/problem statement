@@ -1,0 +1,9 @@
+PROBLEM STATEMENT
+Train Coach Management Using Circular Linked List in C++
+Develop a Train Coach Management System using a Circular Linked List in C++. The system
+should allow users to add new coaches, remove existing coaches, display all coaches, and
+search for a particular coach using its coach number or type. Each coach should be represented
+as a node containing coach details and a pointer to the next coach. The last coach must point
+back to the first coach, forming a circular linked list. The system should provide a menu-driven
+interface to manage coach operations efficiently and demonstrate the practical application of
+circular linked lists in train coach management.
