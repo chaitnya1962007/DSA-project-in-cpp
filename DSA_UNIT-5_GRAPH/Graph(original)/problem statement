@@ -1,0 +1,13 @@
+SERVER NETWORK LATENCY ANALYSIS USING
+DIJKSTRA'S ALGORITHM IN C++
+PROBLEM STATEMENT
+In computer networks, multiple servers are connected through network links, and
+each link has a specific latency. Latency represents the time taken for data to travel
+between connected servers. Identifying the minimum-latency paths is important for
+efficient communication and network routing.
+The purpose of this project is to develop a C++ program that represents servers as
+vertices and network links as weighted edges in a graph, where each edge weight
+represents latency. The program applies Dijkstra's Algorithm from a selected
+source server to calculate the minimum latency to every reachable server. It then
+ranks the reachable servers in ascending order of minimum latency and identifies
+any servers that cannot be reached from the selected source.
