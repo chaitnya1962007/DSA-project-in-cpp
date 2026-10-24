@@ -1,0 +1,9 @@
+Modification of Dijkstra's Algorithm for Shortest Path
+Calculation
+Problem Statement
+Dijkstra's algorithm is used to find the shortest distances between vertices in a
+weighted graph. Modify the program to perform the following operations:
+A. Select a different source vertex and recalculate the shortest distances.
+B. Display the complete shortest path to a destination vertex, not only its distance.
+C. Update an edge weight and recalculate the shortest paths.
+Scanned with OKEN Scanner
