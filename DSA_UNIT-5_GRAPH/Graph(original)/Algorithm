@@ -1,0 +1,35 @@
+SERVER NETWORK LATENCY ANALYSIS USING DIJKSTRA'S ALGORITHM IN C++
+
+ALGORITHM
+
+Dijkstra's Algorithm for Minimum Network Latency
+
+1. Start the program.
+
+2. Input the number of servers and the number of network links.
+
+3. Create a weighted graph using an adjacency list. Represent each server as a vertex and each network link as an edge whose weight represents latency.
+
+4. Input the selected source server.
+
+5. Initialize the source server's distance to 0 and set the distances of all other servers to infinity.
+
+6. Insert the source server into a minimum priority queue.
+
+7. Remove the server with the smallest recorded distance from the priority queue.
+
+8. If the removed entry is outdated, ignore it and continue to the next queue entry.
+
+9. Examine every neighboring server connected to the selected server.
+
+10. Calculate the possible new latency by adding the current distance and the link latency.
+
+11. If the new latency is smaller than the recorded distance, update that distance and insert the updated entry into the priority queue.
+
+12. Repeat the queue-processing and neighbor-checking steps until the priority queue becomes empty.
+
+13. Collect all reachable servers and sort them in ascending order of minimum latency.
+
+14. Display the ranked reachable servers with their minimum latencies. Display any unreachable servers separately.
+
+15. Stop the program.
