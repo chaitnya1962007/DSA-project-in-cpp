@@ -1,0 +1,232 @@
+#include <iostream>
+#include <vector>
+#include <climits>
+#include <algorithm>
+using namespace std;
+
+const long long INF = LLONG_MAX;
+
+void dijkstra(const vector<vector<long long>>& graph,
+              int source,
+              vector<long long>& dist,
+              vector<int>& parent) {
+    int n = graph.size();
+    vector<bool> visited(n, false);
+
+    dist.assign(n, INF);
+    parent.assign(n, -1);
+    dist[source] = 0;
+
+    for (int count = 0; count < n; count++) {
+        int u = -1;
+
+        for (int i = 0; i < n; i++) {
+            if (!visited[i] && dist[i] != INF &&
+                (u == -1 || dist[i] < dist[u])) {
+                u = i;
+            }
+        }
+
+        if (u == -1)
+            break;
+
+        visited[u] = true;
+
+        for (int v = 0; v < n; v++) {
+            if (!visited[v] && graph[u][v] != INF &&
+                dist[u] <= INF - graph[u][v]) {
+
+                long long newDist =
+                    dist[u] + graph[u][v];
+
+                if (newDist < dist[v]) {
+                    dist[v] = newDist;
+                    parent[v] = u;
+                }
+            }
+        }
+    }
+}
+
+void displayDistances(const vector<long long>& dist) {
+    cout << "\nServer\tMinimum Latency\n";
+
+    for (int i = 0; i < (int)dist.size(); i++) {
+        cout << i << "\t";
+
+        if (dist[i] == INF)
+            cout << "Unreachable\n";
+        else
+            cout << dist[i] << "\n";
+    }
+}
+
+void displayPath(int destination,
+                 const vector<long long>& dist,
+                 const vector<int>& parent) {
+    if (dist[destination] == INF) {
+        cout << "Destination is unreachable.\n";
+        return;
+    }
+
+    vector<int> path;
+
+    for (int v = destination; v != -1; v = parent[v])
+        path.push_back(v);
+
+    reverse(path.begin(), path.end());
+
+    cout << "Shortest path: ";
+
+    for (int i = 0; i < (int)path.size(); i++) {
+        cout << path[i];
+
+        if (i + 1 < (int)path.size())
+            cout << " -> ";
+    }
+
+    cout << "\nTotal latency: "
+         << dist[destination] << "\n";
+}
+
+int main() {
+    int n, m;
+
+    cout << "Enter number of servers: ";
+    cin >> n;
+
+    if (n <= 0) {
+        cout << "Number of servers must be positive.\n";
+        return 0;
+    }
+
+    cout << "Enter number of network links: ";
+    cin >> m;
+
+    if (m < 0) {
+        cout << "Number of links cannot be negative.\n";
+        return 0;
+    }
+
+    // INF represents the absence of a direct edge.
+    vector<vector<long long>> graph(
+        n, vector<long long>(n, INF));
+
+    for (int i = 0; i < n; i++)
+        graph[i][i] = 0;
+
+    cout << "Enter each link: server1 server2 latency\n";
+    cout << "Server numbers: 0 to " << n - 1 << "\n";
+
+    for (int i = 0; i < m; i++) {
+        int u, v;
+        long long w;
+
+        cin >> u >> v >> w;
+
+        if (u < 0 || u >= n ||
+            v < 0 || v >= n || w < 0) {
+            cout << "Invalid link or latency.\n";
+            return 0;
+        }
+
+        // Undirected graph.
+        graph[u][v] = w;
+        graph[v][u] = w;
+    }
+
+    int source = -1;
+    vector<long long> dist(n, INF);
+    vector<int> parent(n, -1);
+    int choice;
+
+    do {
+        cout << "\n--- Network Shortest Path Menu ---\n";
+        cout << "1. Select/change source\n";
+        cout << "2. Display shortest path\n";
+        cout << "3. Update edge weight\n";
+        cout << "4. Exit\n";
+        cout << "Enter choice: ";
+        cin >> choice;
+
+        if (choice == 1) {
+            cout << "Enter source server: ";
+            cin >> source;
+
+            if (source < 0 || source >= n) {
+                cout << "Invalid source server.\n";
+                source = -1;
+                continue;
+            }
+
+            dijkstra(graph, source, dist, parent);
+            displayDistances(dist);
+        }
+
+        else if (choice == 2) {
+            if (source == -1) {
+                cout << "Select a source first.\n";
+                continue;
+            }
+
+            int destination;
+
+            cout << "Enter destination server: ";
+            cin >> destination;
+
+            if (destination < 0 || destination >= n) {
+                cout << "Invalid destination server.\n";
+                continue;
+            }
+
+            displayPath(destination, dist, parent);
+        }
+
+        else if (choice == 3) {
+            int u, v;
+            long long newWeight;
+
+            cout << "Enter existing edge endpoints (u v): ";
+            cin >> u >> v;
+
+            if (u < 0 || u >= n ||
+                v < 0 || v >= n ||
+                u == v || graph[u][v] == INF) {
+                cout << "Invalid or nonexistent edge.\n";
+                continue;
+            }
+
+            cout << "Enter new non-negative latency: ";
+            cin >> newWeight;
+
+            if (newWeight < 0) {
+                cout << "Latency cannot be negative.\n";
+                continue;
+            }
+
+            graph[u][v] = newWeight;
+            graph[v][u] = newWeight;
+
+            cout << "Edge weight updated successfully.\n";
+
+            if (source != -1) {
+                dijkstra(graph, source, dist, parent);
+                cout << "Distances recalculated.\n";
+                displayDistances(dist);
+            } else {
+                cout << "Select a source to calculate distances.\n";
+            }
+        }
+
+        else if (choice == 4) {
+            cout << "Program ended.\n";
+        }
+
+        else {
+            cout << "Invalid choice. Try again.\n";
+        }
+
+    } while (choice != 4);
+
+    return 0;
+}
