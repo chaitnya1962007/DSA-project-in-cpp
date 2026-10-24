@@ -1,0 +1,21 @@
+Algorithm
+
+1. Start the program.
+
+2. Read the number of vertices and the adjacency matrix.
+
+3. Select the source vertex.
+
+4. Initialize all distances to infinity and set the source distance to zero.
+
+5. Apply Dijkstra's algorithm to calculate shortest distances.
+
+6. Display the shortest distances from the selected source.
+
+7. Enter a destination vertex and display its complete shortest path.
+
+8. Enter an edge and its new weight.
+
+9. Update the edge weight in the graph.
+
+10. Run Dijkstra's algorithm again and display the updated shortest distances. 11. Stop the program.
